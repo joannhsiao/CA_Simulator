@@ -1,0 +1,93 @@
+pipe stages: 0
+data mem word: 256
+inst mem word: 512
+reg mem word: 16
+mem acc time: 100
+alu time: 30
+reg acc time: 30
+mem addr: 64 data: 12
+mem addr: 80 data: 88
+mem addr: 88 data: 10
+reg num: 0 data: 0
+reg num: 1 data: 1
+reg num: 2 data: 2
+reg num: 3 data: 3
+reg num: 4 data: 4
+reg num: 5 data: 5
+reg num: 6 data: 6
+reg num: 7 data: 7
+mem addr: 0 label: Start inst: 	ADD	$2, $1, $2
+
+mem addr: 4 inst: SUB	$3,	$4,	$1
+
+mem addr: 8 inst: OR	$8,	$5,	$6
+
+mem addr: 12 inst: AND	$9,	$6,	$7
+
+mem addr: 16 inst: SLL	$10,	$2,	4
+
+mem addr: 20 inst: LW	$11,	60($4)
+
+mem addr: 24 inst: ADD	$12,	$1,	$5
+
+mem addr: 28 label: Exit inst: 	
+
+PC: 0
+Cycle: 1
+OP: ADD operands: $2, $1, $2
+
+IF	ID	EXE	MEM	REG
+ADD	null	null	null	null
+
+Cycle: 2
+OP: SUB operands: $3,	$4,	$1
+
+IF	ID	EXE	MEM	REG
+SUB	ADD	null	null	null
+
+Cycle: 3
+OP: OR operands: $8,	$5,	$6
+
+IF	ID	EXE	MEM	REG
+OR	SUB	ADD	null	null
+
+Cycle: 4
+OP: AND operands: $9,	$6,	$7
+
+IF	ID	EXE	MEM	REG
+AND	OR	SUB	ADD	null
+
+Cycle: 5
+OP: SLL operands: $10,	$2,	4
+
+IF	ID	EXE	MEM	REG
+SLL	AND	OR	SUB	null
+
+Cycle: 6
+OP: LW operands: $11,	60($4)
+
+IF	ID	EXE	MEM	REG
+LW	SLL	AND	OR	null
+
+Cycle: 7
+OP: ADD operands: $12,	$1,	$5
+
+IF	ID	EXE	MEM	REG
+ADD	LW	SLL	AND	null
+
+Cycle: 8
+IF	ID	EXE	MEM	REG
+null	ADD	LW	SLL	null
+
+Cycle: 9
+IF	ID	EXE	MEM	REG
+null	null	ADD	LW	null
+
+Cycle: 10
+IF	ID	EXE	MEM	REG
+null	null	null	ADD	LW
+
+Cycle: 11
+IF	ID	EXE	MEM	REG
+null	null	null	null	null
+
